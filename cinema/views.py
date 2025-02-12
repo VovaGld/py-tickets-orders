@@ -55,11 +55,15 @@ class MovieViewSet(viewsets.ModelViewSet):
         if search_actor:
             actors_ids = [
                 int(actor_id) for actor_id in search_actor.split(",")
+                if actor_id.isdigit()
             ]
             queryset = queryset.filter(actors__id__in=actors_ids)
 
         if search_genre:
-            genre_ids = [int(genre_id) for genre_id in search_genre.split(",")]
+            genre_ids = [
+                int(genre_id) for genre_id in search_genre.split(",")
+                if genre_id.isdigit()
+            ]
             queryset = queryset.filter(genres__id__in=genre_ids)
 
         if search_title:
